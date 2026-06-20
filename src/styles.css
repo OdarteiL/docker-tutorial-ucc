@@ -1,0 +1,9 @@
+.nav-item.active {
+  background: #EFF6FF;
+  color: #2496ED;
+  border-left-color: #2496ED;
+}
+
+html {
+  scroll-behavior: smooth;
+}

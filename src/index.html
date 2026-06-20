@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Docker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            docker: '#2496ED',
+            primary: '#1E293B',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 text-primary font-sans">
+
+  <!-- Mobile nav toggle -->
+  <button id="menu-toggle" class="fixed top-4 left-4 z-50 md:hidden bg-white border border-gray-200 rounded-lg p-2 cursor-pointer hover:bg-gray-50 transition-colors duration-200">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 overflow-y-auto z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-200">
+    <div class="p-6 border-b border-gray-100">
+      <h1 class="text-xl font-bold flex items-center gap-2">
+        <svg class="w-7 h-7 text-docker" viewBox="0 0 24 24" fill="currentColor"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.186.186 0 00-.185.186v1.887c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.186.186 0 00-.185.185v1.888c0 .102.082.185.185.186m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.186.186 0 00-.185.185v1.887c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.186.186 0 00-.185.185v1.887c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.186.186 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.186.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.186.186 0 00-.185.186v1.887c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.186v1.887c0 .102.083.185.185.185m-2.964 0h2.119a.186.186 0 00.185-.185V9.006a.186.186 0 00-.185-.186H5.136a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.185.186v1.887c0 .102.083.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.687 11.687 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.228 12.228 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></svg>
+        Learn Docker
+      </h1>
+    </div>
+    <nav class="p-4 space-y-1">
+      <a href="#intro" class="nav-item active block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Introduction</a>
+      <a href="#commands" class="nav-item block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Essential Commands</a>
+      <a href="#dockerfile" class="nav-item block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Dockerfile</a>
+      <a href="#volumes" class="nav-item block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Volumes & Storage</a>
+      <a href="#networking" class="nav-item block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Networking</a>
+      <a href="#compose" class="nav-item block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Docker Compose</a>
+      <a href="#best-practices" class="nav-item block px-3 py-2 rounded-lg border-l-4 border-transparent text-sm font-medium cursor-pointer hover:bg-blue-50 transition-colors duration-200">Best Practices</a>
+    </nav>
+  </aside>
+
+  <!-- Overlay for mobile -->
+  <div id="overlay" class="fixed inset-0 bg-black/30 z-30 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+  <!-- Main Content -->
+  <main class="md:ml-64 px-4 sm:px-8 lg:px-12 py-12 max-w-4xl">
+
+    <!-- Intro -->
+    <section id="intro" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-blue-100 text-docker text-xs font-semibold rounded-full mb-4">Getting Started</div>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">What is Docker?</h2>
+      <p class="text-gray-600 text-lg mb-6">Docker packages applications into containers — lightweight, portable units that run consistently anywhere.</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-docker transition-colors duration-200">
+          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-docker" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Image</h3>
+          <p class="text-sm text-gray-500">A read-only template — the blueprint for containers.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-400 transition-colors duration-200">
+          <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Container</h3>
+          <p class="text-sm text-gray-500">A running instance of an image with its own filesystem.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-purple-400 transition-colors duration-200">
+          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Dockerfile</h3>
+          <p class="text-sm text-gray-500">Instructions that define how to build an image.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-amber-400 transition-colors duration-200">
+          <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6"/></svg>
+          </div>
+          <h3 class="font-semibold mb-1">Registry</h3>
+          <p class="text-sm text-gray-500">A storage service for images (e.g., Docker Hub).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commands -->
+    <section id="commands" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full mb-4">Commands</div>
+      <h2 class="text-3xl font-bold mb-4">Essential Commands</h2>
+      <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto">
+        <pre class="text-sm text-green-400"><code><span class="text-gray-500"># Pull an image from Docker Hub</span>
+docker pull nginx
+
+<span class="text-gray-500"># Run a container (detached, with port mapping)</span>
+docker run -d -p 8080:80 nginx
+
+<span class="text-gray-500"># List running containers</span>
+docker ps
+
+<span class="text-gray-500"># List all containers (including stopped)</span>
+docker ps -a
+
+<span class="text-gray-500"># Stop a running container</span>
+docker stop &lt;container_id&gt;
+
+<span class="text-gray-500"># Remove a container</span>
+docker rm &lt;container_id&gt;
+
+<span class="text-gray-500"># List downloaded images</span>
+docker images
+
+<span class="text-gray-500"># Remove an image</span>
+docker rmi &lt;image_id&gt;
+
+<span class="text-gray-500"># View container logs</span>
+docker logs &lt;container_id&gt;
+
+<span class="text-gray-500"># Execute command inside running container</span>
+docker exec -it &lt;container_id&gt; sh</code></pre>
+      </div>
+    </section>
+
+    <!-- Dockerfile -->
+    <section id="dockerfile" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full mb-4">Build</div>
+      <h2 class="text-3xl font-bold mb-4">Writing a Dockerfile</h2>
+      <p class="text-gray-600 mb-6">A Dockerfile is a set of instructions that Docker uses to build an image layer by layer.</p>
+      <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto mb-4">
+        <pre class="text-sm text-green-400"><code><span class="text-blue-400">FROM</span> node:20-alpine
+
+<span class="text-blue-400">WORKDIR</span> /app
+
+<span class="text-blue-400">COPY</span> package*.json ./
+<span class="text-blue-400">RUN</span> npm ci --only=production
+
+<span class="text-blue-400">COPY</span> . .
+
+<span class="text-blue-400">EXPOSE</span> 3000
+<span class="text-blue-400">CMD</span> ["node", "server.js"]</code></pre>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
+        <strong>Tip:</strong> Copy package.json first and run <code class="bg-blue-100 px-1 rounded">npm ci</code> before copying source files. This leverages Docker's layer caching — dependencies only rebuild when package.json changes.
+      </div>
+    </section>
+
+    <!-- Volumes -->
+    <section id="volumes" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full mb-4">Storage</div>
+      <h2 class="text-3xl font-bold mb-4">Volumes & Persistence</h2>
+      <p class="text-gray-600 mb-6">Containers are ephemeral. Volumes persist data beyond the container lifecycle.</p>
+      <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto">
+        <pre class="text-sm text-green-400"><code><span class="text-gray-500"># Create a named volume</span>
+docker volume create mydata
+
+<span class="text-gray-500"># Mount to a container</span>
+docker run -d -v mydata:/app/data nginx
+
+<span class="text-gray-500"># Bind mount (host directory → container)</span>
+docker run -d -v $(pwd)/src:/app/src nginx
+
+<span class="text-gray-500"># List volumes</span>
+docker volume ls
+
+<span class="text-gray-500"># Inspect a volume</span>
+docker volume inspect mydata</code></pre>
+      </div>
+    </section>
+
+    <!-- Networking -->
+    <section id="networking" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-rose-100 text-rose-700 text-xs font-semibold rounded-full mb-4">Network</div>
+      <h2 class="text-3xl font-bold mb-4">Docker Networking</h2>
+      <p class="text-gray-600 mb-6">Containers communicate through networks. Docker provides several network drivers.</p>
+      <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto">
+        <pre class="text-sm text-green-400"><code><span class="text-gray-500"># Create a custom network</span>
+docker network create mynet
+
+<span class="text-gray-500"># Run containers on the same network</span>
+docker run -d --name api --network mynet node-app
+docker run -d --name db --network mynet postgres
+
+<span class="text-gray-500"># Containers can reach each other by name</span>
+<span class="text-gray-500"># api can connect to db via "db:5432"</span>
+
+<span class="text-gray-500"># List networks</span>
+docker network ls</code></pre>
+      </div>
+    </section>
+
+    <!-- Compose -->
+    <section id="compose" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full mb-4">Multi-Container</div>
+      <h2 class="text-3xl font-bold mb-4">Docker Compose</h2>
+      <p class="text-gray-600 mb-6">Define and run multi-container applications with a single YAML file.</p>
+      <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto mb-4">
+        <pre class="text-sm text-green-400"><code><span class="text-blue-400">services:</span>
+  <span class="text-amber-400">web:</span>
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://user:pass@db:5432/app
+
+  <span class="text-amber-400">db:</span>
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: app
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+<span class="text-blue-400">volumes:</span>
+  pgdata:</code></pre>
+      </div>
+      <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto">
+        <pre class="text-sm text-green-400"><code><span class="text-gray-500"># Start services</span>
+docker compose up -d
+
+<span class="text-gray-500"># View logs</span>
+docker compose logs -f
+
+<span class="text-gray-500"># Stop and remove</span>
+docker compose down
+
+<span class="text-gray-500"># Rebuild after code changes</span>
+docker compose up -d --build</code></pre>
+      </div>
+    </section>
+
+    <!-- Best Practices -->
+    <section id="best-practices" class="mb-16">
+      <div class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full mb-4">Tips</div>
+      <h2 class="text-3xl font-bold mb-4">Best Practices</h2>
+      <div class="space-y-3">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-emerald-700 mb-1">Use small base images</h3>
+          <p class="text-sm text-gray-600">Prefer <code class="bg-gray-100 px-1 rounded">alpine</code> variants — they're ~5MB vs ~100MB+ for full images.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-docker mb-1">Leverage layer caching</h3>
+          <p class="text-sm text-gray-600">Order Dockerfile instructions from least to most frequently changing.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-purple-700 mb-1">Use .dockerignore</h3>
+          <p class="text-sm text-gray-600">Exclude <code class="bg-gray-100 px-1 rounded">node_modules</code>, <code class="bg-gray-100 px-1 rounded">.git</code>, and build artifacts to speed up builds.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-amber-700 mb-1">Don't run as root</h3>
+          <p class="text-sm text-gray-600">Add <code class="bg-gray-100 px-1 rounded">USER node</code> or a non-root user for security.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-rose-700 mb-1">One process per container</h3>
+          <p class="text-sm text-gray-600">Keep containers focused. Use Compose to orchestrate multiple services.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const toggle = document.getElementById('menu-toggle');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+    toggle.addEventListener('click', toggleSidebar);
+
+    // Active nav highlighting on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('.nav-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navItems.forEach(item => item.classList.remove('active'));
+          const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(s => observer.observe(s));
+
+    // Close sidebar on mobile nav click
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth < 768) toggleSidebar();
+      });
+    });
+  </script>
+</body>
+</html>
