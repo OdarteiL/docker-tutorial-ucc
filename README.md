@@ -51,3 +51,9 @@ docker run -d -p 8080:80 --name my-site docker-tutorial:v1
 
 - [Docker](https://docs.docker.com/get-docker/) installed
 - [Docker Hub](https://hub.docker.com/signup) account (for pushing)
+
+## Useful Links
+
+- [Docker Official Images](https://hub.docker.com/search?badges=official) — Curated, trusted base images
+- [Docker Installation Guide](https://docs.docker.com/engine/install) — Install Docker on any OS
+- [Excalidraw](https://excalidraw.com/) — Whiteboard tool for architecture diagrams
